@@ -15,4 +15,10 @@ public interface ItemService {
 	
 	@RequestMapping("/item/delete_item")
 	public Map<String, Object> deleteItem(@RequestParam(name = "ids",required=true) List<String> ids);
+	
+	@RequestMapping("/item/instock_item")
+	public Map<String, Object> instockItem(@RequestParam(name = "ids",required=true) List<String> ids);
+	
+	@RequestMapping("/item/reshelf_item")
+	public Map<String, Object> reshelfItem(@RequestParam(name = "ids",required=true) List<String> ids);
 }

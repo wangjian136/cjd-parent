@@ -37,4 +37,26 @@ public class ItemController {
 		}
 		return result;
 	}
+	
+	@RequestMapping("/instock_item")
+	public Map<String, Object> instock(@RequestParam(name = "ids",required=true) List<String> ids) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Item> items = itemService.selItemByIds(ids);
+		int num = itemService.instockItems(items);
+		if(num == 1) {
+			result.put("status", 200);
+		}
+		return result;
+	}
+	
+	@RequestMapping("/reshelf_item")
+	public Map<String, Object> reshelf(@RequestParam(name = "ids",required=true) List<String> ids) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Item> items = itemService.selItemByIds(ids);
+		int num = itemService.reshelfItems(items);
+		if(num == 1) {
+			result.put("status", 200);
+		}
+		return result;
+	}
 }

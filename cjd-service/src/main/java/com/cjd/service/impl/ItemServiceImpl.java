@@ -52,4 +52,28 @@ public class ItemServiceImpl implements ItemService{
 		return items;
 	}
 
+	@Override
+	public int instockItems(List<Item> items) {
+		if(items != null) {
+			for (Item item : items) {
+				item.setStatus((byte) 2);
+			}
+			itemDao.saveAll(items);
+			return 1;
+		}
+		return -1;
+	}
+
+	@Override
+	public int reshelfItems(List<Item> items) {
+		if(items != null) {
+			for (Item item : items) {
+				item.setStatus((byte) 1);
+			}
+			itemDao.saveAll(items);
+			return 1;
+		}
+		return -1;
+	}
+
 }

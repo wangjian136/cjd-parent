@@ -46,4 +46,28 @@ public class ItemController {
 		String[] id_array = ids.split(",");
 		return itemService.deleteItem(Arrays.asList(id_array));
 	}
+	
+	/**
+	 * 商品下架
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/rest/item/instock")
+	@ResponseBody
+	public Map<String, Object> instock(String ids){
+		String[] id_array = ids.split(",");
+		return itemService.instockItem(Arrays.asList(id_array));
+	}
+	
+	/**
+	 * 商品上架
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping("/rest/item/reshelf")
+	@ResponseBody
+	public Map<String, Object> reshelf(String ids){
+		String[] id_array = ids.split(",");
+		return itemService.reshelfItem(Arrays.asList(id_array));
+	}
 }
