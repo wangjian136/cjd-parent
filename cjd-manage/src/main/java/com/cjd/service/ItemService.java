@@ -7,6 +7,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+
 @FeignClient("eureka-provider")
 public interface ItemService {
 	
@@ -21,4 +23,7 @@ public interface ItemService {
 	
 	@RequestMapping("/item/reshelf_item")
 	public Map<String, Object> reshelfItem(@RequestParam(name = "ids",required=true) List<String> ids);
+	
+	@RequestMapping("/item_cat/show_item_cat")
+	public Map<String, Object> show(@RequestParam Long pid);
 }

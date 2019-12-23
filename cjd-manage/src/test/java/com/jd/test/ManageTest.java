@@ -20,7 +20,7 @@ public class ManageTest {
 	
 	@Test
 	public void testSelAllItem() {
-		Map<String, Object> result = itemService.selAllItem(1, 20);
-		System.out.println(result);
+		/*Map<String, Object> result = itemService.selAllItem(1, 20);
+		System.out.println(result);*/
 	}
 }

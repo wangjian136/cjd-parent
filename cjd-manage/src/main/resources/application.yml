@@ -10,3 +10,10 @@ spring:
     mvc: 
         view: 
               suffix: .jsp
+ftpclient:
+    basepath: G:/nginx-1.17.5/html/docs/
+    filepath: /
+    host: 192.168.1.102
+    password: 13579
+    username: Administrator
+    port: 21
