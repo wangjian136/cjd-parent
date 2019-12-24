@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cjd.dao.ItemDao;
 import com.cjd.pojo.Item;
+import com.cjd.pojo.ItemDesc;
 import com.cjd.service.ItemService;
 
 @Service
@@ -71,6 +72,15 @@ public class ItemServiceImpl implements ItemService{
 				item.setStatus((byte) 1);
 			}
 			itemDao.saveAll(items);
+			return 1;
+		}
+		return -1;
+	}
+
+	@Override
+	public int insItem(Item item) {
+		Item i = itemDao.save(item);
+		if(i != null) {
 			return 1;
 		}
 		return -1;

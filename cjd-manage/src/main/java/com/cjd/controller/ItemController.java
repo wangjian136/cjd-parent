@@ -7,8 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cjd.pojo.Item;
 import com.cjd.service.ItemService;
 
 @Controller
@@ -69,5 +71,17 @@ public class ItemController {
 	public Map<String, Object> reshelf(String ids){
 		String[] id_array = ids.split(",");
 		return itemService.reshelfItem(Arrays.asList(id_array));
+	}
+	
+	/**
+	 * 商品保存
+	 * @param item
+	 * @param desc
+	 * @return
+	 */
+	@RequestMapping("/item/save")
+	@ResponseBody
+	public Map<String, Object> saveItem(Item item, String desc){
+		return itemService.save(item, desc);
 	}
 }

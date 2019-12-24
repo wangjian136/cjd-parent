@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.cjd.pojo.Item;
 
 
 
@@ -26,4 +29,7 @@ public interface ItemService {
 	
 	@RequestMapping("/item_cat/show_item_cat")
 	public Map<String, Object> show(@RequestParam Long pid);
+	
+	@RequestMapping("/item/save_item")
+	public Map<String, Object> save(@RequestBody(required = false) Item item, @RequestParam String desc);
 }

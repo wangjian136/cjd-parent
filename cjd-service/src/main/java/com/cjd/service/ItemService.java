@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.cjd.pojo.Item;
+import com.cjd.pojo.ItemDesc;
 
 public interface ItemService {
 	//查询全部商品
@@ -17,4 +18,6 @@ public interface ItemService {
 	public int reshelfItems(List<Item> items);
 	//根据id集合查找商品
 	public List<Item> selItemByIds(List<String> ids);
+	
+	public int insItem(Item item);
 }

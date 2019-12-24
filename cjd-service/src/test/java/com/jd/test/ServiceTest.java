@@ -8,23 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.cjd.ManageApp;
-import com.cjd.pojo.Item;
+import com.cjd.ServiceApp;
 import com.cjd.service.ItemService;
-import com.cjd.util.IDUtils;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {ManageApp.class})
-public class ManageTest {
+@SpringBootTest(classes = {ServiceApp.class})
+public class ServiceTest {
 	
 	@Autowired
 	private ItemService itemService;
 	
 	@Test
 	public void testSelAllItem() {
-		Item item = new Item();
-		long id = IDUtils.genItemId();
-		item.setId(id);
-		itemService.save(item, "ss");
+		/*Map<String, Object> result = itemService.selAllItem(1, 20);
+		System.out.println(result);*/
 	}
 }

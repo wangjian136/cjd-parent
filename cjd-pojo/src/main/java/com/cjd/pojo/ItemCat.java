@@ -34,7 +34,6 @@ public class ItemCat implements Serializable{
     private Date updated;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
