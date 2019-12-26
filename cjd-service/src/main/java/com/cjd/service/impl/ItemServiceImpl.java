@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cjd.dao.ItemDao;
+import com.cjd.dao.ItemDescDao;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
 import com.cjd.service.ItemService;
@@ -21,6 +22,9 @@ public class ItemServiceImpl implements ItemService{
 	
 	@Autowired
 	private ItemDao itemDao;
+	
+	@Autowired
+	private ItemDescDao itemDescDao;
 
 	@Override
 	public Page<Item> selAllItem(int page, int rows) {
@@ -84,6 +88,28 @@ public class ItemServiceImpl implements ItemService{
 			return 1;
 		}
 		return -1;
+	}
+	
+	@Override
+	public int insItemDesc(Item item, ItemDesc desc) throws Exception {
+		int index =0;
+		try {
+			Item i = itemDao.save(item);
+			if(i != null) {
+				index+=1;
+			}
+			ItemDesc d = itemDescDao.save(desc);
+			if(d != null) {
+				index+=1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(index==2){
+			return 1;
+		}else{
+			throw new Exception("新增失败,数据还原");
+		}
 	}
 
 }

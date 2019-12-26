@@ -108,10 +108,25 @@ var TT = EGO = {
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
     		var _ele = $(e);
+    		_ele.after("<span style='margin-left:10px;'></span>");
     		if(data && data.cid){
-    			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
-    		}else{
-    			_ele.after("<span style='margin-left:10px;'></span>");
+    			//编写回显
+    			$.ajax({
+    				url: '/item/cat/get',
+    				dataType: 'json',
+                    data: {
+                        id:data.cid
+                    },
+    				success: function(node){
+    					// 填写到cid中
+    					console.log(node);
+	    				_ele.parent().find("[name=cid]").val(node.id);
+	    				_ele.next().text(node.text).attr("cid",node.id);
+    				},
+                    error: function(){
+    					alert("error!");
+    				}
+    			});
     		}
     		_ele.unbind('click').click(function(){
     			$("<div>").css({padding:"5px"}).html("<ul>")

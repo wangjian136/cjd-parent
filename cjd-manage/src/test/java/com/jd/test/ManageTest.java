@@ -22,9 +22,6 @@ public class ManageTest {
 	
 	@Test
 	public void testSelAllItem() {
-		Item item = new Item();
-		long id = IDUtils.genItemId();
-		item.setId(id);
-		itemService.save(item, "ss");
+		
 	}
 }

@@ -36,4 +36,16 @@ public class ItemCatController {
 		map.put("listTree", listTree);
 		return map;
 	}
+	
+	@RequestMapping("/get_item_cat")
+	public Map<String, Object> getItemCat(@RequestParam Long id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		ItemCat cat = itemCatService.getItemCat(id);
+		EasyUiTree tree = new EasyUiTree();
+		tree.setId(cat.getId());
+		tree.setText(cat.getName());
+		tree.setState(cat.getIsParent()?"closed":"open");
+		map.put("cat", tree);
+		return map;
+	}
 }

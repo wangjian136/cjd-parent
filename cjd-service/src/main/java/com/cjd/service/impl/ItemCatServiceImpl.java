@@ -21,5 +21,10 @@ public class ItemCatServiceImpl implements ItemCatService{
 	public List<ItemCat> show(long pid) {
 		return itemCatDao.findByParentId(pid);
 	}
+	
+	@Override
+	public ItemCat getItemCat(long id) {
+		return itemCatDao.findById(id).get();
+	}
 
 }

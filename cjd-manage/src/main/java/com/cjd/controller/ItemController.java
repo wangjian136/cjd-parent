@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjd.pojo.Item;
+import com.cjd.pojo.ItemDesc;
 import com.cjd.service.ItemService;
 
 @Controller
@@ -79,9 +81,26 @@ public class ItemController {
 	 * @param desc
 	 * @return
 	 */
-	@RequestMapping("/item/save")
+	@RequestMapping({"/item/save","/rest/item/update"})
 	@ResponseBody
-	public Map<String, Object> saveItem(Item item, String desc){
+	public Map<String, Object> saveItem(Item item, String desc) throws Exception{
 		return itemService.save(item, desc);
+	}
+	
+	/**
+	 * 商品详情
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/rest/item/query/item/desc/{id}")
+	@ResponseBody
+	public Map<String, Object> showItemDesc(@PathVariable Long id){
+		Map<String, Object> result = new HashMap<String, Object>();
+		ItemDesc desc = itemService.getItemDesc(id);
+		if(desc != null) {
+			result.put("data", desc);
+			result.put("status", 200);
+		}
+		return result;
 	}
 }

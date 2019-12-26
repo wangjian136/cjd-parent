@@ -70,24 +70,29 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/save_item")
-	public Map<String, Object> save(@RequestBody(required = false) Item item, @RequestParam String desc) {
+	public Map<String, Object> save(@RequestBody(required = false) Item item, @RequestParam String desc) throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>();
-		long id = IDUtils.genItemId();
-		item.setId(id);
+		ItemDesc itemDesc = new ItemDesc();
 		Date date = new Date();
-		item.setCreated(date);
-		item.setUpdated(date);
-		item.setStatus((byte) 1);
-		int index = itemService.insItem(item);
-		if(index > 0) {
-			ItemDesc itemDesc = new ItemDesc();
+		if(item.getId() == null) {
+			long id = IDUtils.genItemId();
+			item.setId(id);
 			itemDesc.setItemId(id);
-			itemDesc.setItemDesc(desc);
-			itemDesc.setCreated(date);
-			itemDesc.setUpdated(date);
-			index += itemDescService.insItemDesc(itemDesc);
+		}else {
+			itemDesc.setItemId(item.getId());
 		}
-		if(index == 2) {
+		item.setCreated(date);
+		itemDesc.setCreated(date);
+		item.setUpdated(date);
+		itemDesc.setUpdated(date);
+		item.setStatus((byte) 1);
+		itemDesc.setItemDesc(desc);
+	
+		int index = 0;
+
+		index = itemService.insItemDesc(item, itemDesc);
+		System.out.println("index:" + index);
+		if(index == 1) {
 			result.put("status", 200);
 		}
 		return result;

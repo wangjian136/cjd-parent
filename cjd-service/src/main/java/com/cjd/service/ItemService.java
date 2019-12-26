@@ -20,4 +20,6 @@ public interface ItemService {
 	public List<Item> selItemByIds(List<String> ids);
 	
 	public int insItem(Item item);
+	
+	public int insItemDesc(Item item, ItemDesc desc) throws Exception;
 }

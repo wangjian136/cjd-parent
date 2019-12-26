@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cjd.pojo.Item;
+import com.cjd.pojo.ItemDesc;
 
 
 
@@ -30,6 +31,12 @@ public interface ItemService {
 	@RequestMapping("/item_cat/show_item_cat")
 	public Map<String, Object> show(@RequestParam Long pid);
 	
+	@RequestMapping("/item_cat/get_item_cat")
+	public Map<String, Object> getItemCat(@RequestParam Long id);
+	
 	@RequestMapping("/item/save_item")
-	public Map<String, Object> save(@RequestBody(required = false) Item item, @RequestParam String desc);
+	public Map<String, Object> save(@RequestBody(required = false) Item item, @RequestParam String desc) throws Exception;
+	
+	@RequestMapping("/item_desc/get_item_desc")
+	public ItemDesc getItemDesc(@RequestParam Long id);
 }

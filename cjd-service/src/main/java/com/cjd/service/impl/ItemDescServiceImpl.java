@@ -33,4 +33,9 @@ public class ItemDescServiceImpl implements ItemDescService{
 		return -1;
 	}
 
+	@Override
+	public ItemDesc getItemDesc(Long id) {
+		return itemDescDao.findById(id).get();
+	}
+
 }

@@ -29,4 +29,17 @@ public class ItemCatController {
 		Map<String, Object> map = itemService.show(id);
 		return (List) map.get("listTree");
 	}
+	
+	
+	/**
+	 * 显示商品类目详情
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/item/cat/get")
+	@ResponseBody
+	public Object showCatDetail(@RequestParam(defaultValue="0") long id){
+		Map<String, Object> map = itemService.getItemCat(id);
+		return map.get("cat");
+	}
 }
