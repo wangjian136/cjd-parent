@@ -39,4 +39,7 @@ public interface ItemService {
 	
 	@RequestMapping("/item_desc/get_item_desc")
 	public ItemDesc getItemDesc(@RequestParam Long id);
+	
+	@RequestMapping("/item_param/show_item_param")
+	public Map<String, Object> selAllItemParam(@RequestParam int page,@RequestParam int rows);
 }
