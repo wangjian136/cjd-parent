@@ -6,4 +6,5 @@ import com.cjd.pojo.ItemParam;
 
 public interface ItemParamDao extends JpaRepository<ItemParam, Long>{
 	
+	public ItemParam findByItemCatId(Long catId);
 }

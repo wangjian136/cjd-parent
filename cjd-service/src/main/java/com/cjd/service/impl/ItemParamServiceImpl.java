@@ -1,5 +1,7 @@
 package com.cjd.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,30 @@ public class ItemParamServiceImpl implements ItemParamService{
 		Pageable pageable = PageRequest.of(page, rows);
 		Page<ItemParam> pages = itemParamDao.findAll(pageable);
 		return pages;
+	}
+
+	@Override
+	public int delItemByIds(List<String> ids) {
+		int index = 0;
+		for (String id : ids) {
+			itemParamDao.deleteById(Long.parseLong(id));
+			index++;
+		}
+		return index;
+	}
+
+	@Override
+	public ItemParam getItemParamByCatId(long catId) {
+		return itemParamDao.findByItemCatId(catId);
+	}
+
+	@Override
+	public int insItemParam(ItemParam itemParam) {
+		ItemParam i = itemParamDao.save(itemParam);
+		if(i != null) {
+			return 1;
+		}
+		return -1;
 	}
 
 }

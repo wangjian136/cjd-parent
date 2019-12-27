@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.ItemParam;
 
 
 
@@ -42,4 +43,13 @@ public interface ItemService {
 	
 	@RequestMapping("/item_param/show_item_param")
 	public Map<String, Object> selAllItemParam(@RequestParam int page,@RequestParam int rows);
+	
+	@RequestMapping("/item_param/delete_item_param")
+	public Map<String, Object> deleteItemParam(@RequestParam(name = "ids",required=true) List<String> ids);
+	
+	@RequestMapping("/item_param/get_item_param_cat")
+	public ItemParam getItemParamByCat(@RequestParam Long catId);
+	
+	@RequestMapping("/item_param/save_item_param")
+	public Map<String, Object> saveItemParam(@RequestBody(required = false) ItemParam itemParam);
 }
