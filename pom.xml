@@ -70,5 +70,6 @@
 		<module>cjd-commons</module>
 		<module>cjd-manage</module>
 		<module>cjd-portal</module>
+		<module>cjd-item</module>
 	</modules>
 </project>
