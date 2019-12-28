@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cjd.service.ItemService;
+import com.cjd.service.ManageService;
 
 @Controller
 public class ItemCatController {
 
 	@Autowired
-	private ItemService itemService;
+	private ManageService manageService;
 	
 	/**
 	 * 显示商品类目
@@ -26,7 +26,7 @@ public class ItemCatController {
 	@RequestMapping("/item/cat/list")
 	@ResponseBody
 	public List showCat(@RequestParam(defaultValue="0") long id){
-		Map<String, Object> map = itemService.show(id);
+		Map<String, Object> map = manageService.show(id);
 		return (List) map.get("listTree");
 	}
 	
@@ -39,7 +39,7 @@ public class ItemCatController {
 	@RequestMapping("/item/cat/get")
 	@ResponseBody
 	public Object showCatDetail(@RequestParam(defaultValue="0") long id){
-		Map<String, Object> map = itemService.getItemCat(id);
+		Map<String, Object> map = manageService.getItemCat(id);
 		return map.get("cat");
 	}
 }

@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cjd.dao.ItemDao;
 import com.cjd.dao.ItemDescDao;
+import com.cjd.dao.ItemParamItemDao;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemService;
 
 @Service
@@ -25,6 +27,9 @@ public class ItemServiceImpl implements ItemService{
 	
 	@Autowired
 	private ItemDescDao itemDescDao;
+	
+	@Autowired
+	private ItemParamItemDao itemParamItemDao;
 
 	@Override
 	public Page<Item> selAllItem(int page, int rows) {
@@ -91,7 +96,7 @@ public class ItemServiceImpl implements ItemService{
 	}
 	
 	@Override
-	public int insItemDesc(Item item, ItemDesc desc) throws Exception {
+	public int insItemDesc(Item item, ItemDesc desc, ItemParamItem paramItem) throws Exception {
 		int index =0;
 		try {
 			Item i = itemDao.save(item);
@@ -102,10 +107,14 @@ public class ItemServiceImpl implements ItemService{
 			if(d != null) {
 				index+=1;
 			}
+			ItemParamItem p = itemParamItemDao.save(paramItem);
+			if(p != null) {
+				index+=1;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(index==2){
+		if(index==3){
 			return 1;
 		}else{
 			throw new Exception("新增失败,数据还原");

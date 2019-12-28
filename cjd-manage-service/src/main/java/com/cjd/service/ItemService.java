@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.ItemParamItem;
 
 public interface ItemService {
 	//查询全部商品
@@ -21,5 +22,5 @@ public interface ItemService {
 	
 	public int insItem(Item item);
 	
-	public int insItemDesc(Item item, ItemDesc desc) throws Exception;
+	public int insItemDesc(Item item, ItemDesc desc, ItemParamItem paramItem) throws Exception;
 }

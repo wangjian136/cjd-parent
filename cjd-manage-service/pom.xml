@@ -7,7 +7,7 @@
 		<artifactId>cjd-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>cjd-service</artifactId>
+	<artifactId>cjd-manage-service</artifactId>
 	
 	<dependencies>
 	

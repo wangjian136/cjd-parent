@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemDescService;
+import com.cjd.service.ItemParamItemService;
 import com.cjd.service.ItemService;
 import com.cjd.util.EasyUIJsonUtils;
 import com.cjd.util.IDUtils;
@@ -29,6 +31,9 @@ public class ItemController {
 	
 	@Autowired
 	private ItemDescService itemDescService;
+	
+	@Autowired
+	private ItemParamItemService itemParamItemService;
 
 	@RequestMapping("/show_item")
 	public Map<String, Object> show(@RequestParam int page,@RequestParam int rows) {
@@ -70,27 +75,34 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/save_item")
-	public Map<String, Object> save(@RequestBody(required = false) Item item, @RequestParam String desc) throws Exception{
+	public Map<String, Object> save(@RequestBody(required = false) Item item, @RequestParam String desc, @RequestParam String paramData) throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>();
 		ItemDesc itemDesc = new ItemDesc();
+		ItemParamItem paramItem = new ItemParamItem();
 		Date date = new Date();
 		if(item.getId() == null) {
 			long id = IDUtils.genItemId();
 			item.setId(id);
 			itemDesc.setItemId(id);
+			paramItem.setItemId(id);
 		}else {
+			ItemParamItem itemParamItem = itemParamItemService.getItemParamByItemId(item.getId());
+			paramItem = itemParamItem;
 			itemDesc.setItemId(item.getId());
 		}
 		item.setCreated(date);
 		itemDesc.setCreated(date);
+		paramItem.setCreated(date);
 		item.setUpdated(date);
 		itemDesc.setUpdated(date);
+		paramItem.setUpdated(date);
 		item.setStatus((byte) 1);
 		itemDesc.setItemDesc(desc);
 	
+		paramItem.setParamData(paramData);
 		int index = 0;
 
-		index = itemService.insItemDesc(item, itemDesc);
+		index = itemService.insItemDesc(item, itemDesc, paramItem);
 		System.out.println("index:" + index);
 		if(index == 1) {
 			result.put("status", 200);

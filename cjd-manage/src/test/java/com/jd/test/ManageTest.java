@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cjd.ManageApp;
 import com.cjd.pojo.Item;
-import com.cjd.service.ItemService;
+import com.cjd.service.ManageService;
 import com.cjd.util.IDUtils;
 
 @RunWith(SpringRunner.class)
@@ -18,7 +18,7 @@ import com.cjd.util.IDUtils;
 public class ManageTest {
 	
 	@Autowired
-	private ItemService itemService;
+	private ManageService itemService;
 	
 	@Test
 	public void testSelAllItem() {

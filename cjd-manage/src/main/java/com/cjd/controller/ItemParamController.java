@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjd.pojo.ItemDesc;
 import com.cjd.pojo.ItemParam;
-import com.cjd.service.ItemService;
+import com.cjd.service.ManageService;
 
 @Controller
 public class ItemParamController {
 
 	@Autowired
-	private ItemService itemService;
+	private ManageService manageService;
 	
 	/**
 	 * 分页显示商品规格
@@ -27,7 +27,7 @@ public class ItemParamController {
 	@RequestMapping("/item/param/list")
 	@ResponseBody
 	public Map<String, Object> show(int page, int rows){
-		return itemService.selAllItemParam(page, rows);
+		return manageService.selAllItemParam(page, rows);
 	}
 	
 	/**
@@ -39,14 +39,14 @@ public class ItemParamController {
 	@ResponseBody
 	public Map<String, Object> delete(String ids){
 		String[] id_array = ids.split(",");
-		return itemService.deleteItemParam(Arrays.asList(id_array));
+		return manageService.deleteItemParam(Arrays.asList(id_array));
 	}
 	
 	@RequestMapping("/item/param/query/itemcatid/{id}")
 	@ResponseBody
 	public Map<String, Object> showItemParam(@PathVariable Long id){
 		Map<String, Object> result = new HashMap<String, Object>();
-		ItemParam param = itemService.getItemParamByCat(id);
+		ItemParam param = manageService.getItemParamByCat(id);
 		if(param != null) {
 			result.put("data", param);
 			result.put("status", 200);
@@ -61,6 +61,6 @@ public class ItemParamController {
 		param.setItemCatId(catId);
 		param.setCreated(curreDate);
 		param.setUpdated(curreDate);
-		return itemService.saveItemParam(param);
+		return manageService.saveItemParam(param);
 	}
 }

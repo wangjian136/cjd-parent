@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
-import com.cjd.service.ItemService;
+import com.cjd.service.ManageService;
 
 @Controller
 public class ItemController {
 
 	@Autowired
-	private ItemService itemService;
+	private ManageService manageService;
 	
 	/**
 	 * 分页显示商品
@@ -27,7 +27,7 @@ public class ItemController {
 	@RequestMapping("/item/list")
 	@ResponseBody
 	public Map<String, Object> show(int page, int rows){
-		return itemService.selAllItem(page, rows);
+		return manageService.selAllItem(page, rows);
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class ItemController {
 	@ResponseBody
 	public Map<String, Object> delete(String ids){
 		String[] id_array = ids.split(",");
-		return itemService.deleteItem(Arrays.asList(id_array));
+		return manageService.deleteItem(Arrays.asList(id_array));
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class ItemController {
 	@ResponseBody
 	public Map<String, Object> instock(String ids){
 		String[] id_array = ids.split(",");
-		return itemService.instockItem(Arrays.asList(id_array));
+		return manageService.instockItem(Arrays.asList(id_array));
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class ItemController {
 	@ResponseBody
 	public Map<String, Object> reshelf(String ids){
 		String[] id_array = ids.split(",");
-		return itemService.reshelfItem(Arrays.asList(id_array));
+		return manageService.reshelfItem(Arrays.asList(id_array));
 	}
 	
 	/**
@@ -83,8 +83,8 @@ public class ItemController {
 	 */
 	@RequestMapping({"/item/save","/rest/item/update"})
 	@ResponseBody
-	public Map<String, Object> saveItem(Item item, String desc) throws Exception{
-		return itemService.save(item, desc);
+	public Map<String, Object> saveItem(Item item, String desc, String itemParams) throws Exception{
+		return manageService.save(item, desc, itemParams);
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class ItemController {
 	@ResponseBody
 	public Map<String, Object> showItemDesc(@PathVariable Long id){
 		Map<String, Object> result = new HashMap<String, Object>();
-		ItemDesc desc = itemService.getItemDesc(id);
+		ItemDesc desc = manageService.getItemDesc(id);
 		if(desc != null) {
 			result.put("data", desc);
 			result.put("status", 200);

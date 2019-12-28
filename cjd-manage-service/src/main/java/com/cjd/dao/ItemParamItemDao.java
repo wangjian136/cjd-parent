@@ -6,4 +6,5 @@ import com.cjd.pojo.ItemParamItem;
 
 public interface ItemParamItemDao extends JpaRepository<ItemParamItem, Long>{
 	
+	public ItemParamItem findByItemId(Long itemId);
 }

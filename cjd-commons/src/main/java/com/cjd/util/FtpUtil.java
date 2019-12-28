@@ -138,7 +138,7 @@ public static boolean uploadFile(String host, int port, String username, String 
 	public static void main(String[] args) {
 		try {  
 	        FileInputStream in=new FileInputStream(new File("G:/a.png"));  
-	        boolean flag = uploadFile("192.168.1.102", 21, "Administrator", "13579", "G:/nginx-1.17.5/html/docs","/", "abc1.png", in);  
+	        boolean flag = uploadFile("192.168.1.102", 21, "Administrator", "13579", "G:/nginx-1.17.5/html/docs","/", "abc2.png", in);  
 	        System.out.println(flag);  
 	    } catch (FileNotFoundException e) {  
 	        e.printStackTrace();  
