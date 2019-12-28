@@ -69,5 +69,6 @@
 		<module>cjd-manage-service</module>
 		<module>cjd-commons</module>
 		<module>cjd-manage</module>
+		<module>cjd-portal</module>
 	</modules>
 </project>
