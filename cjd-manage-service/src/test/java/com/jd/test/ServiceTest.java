@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.cjd.ServiceApp;
+import com.cjd.ManageServiceApp;
 import com.cjd.service.ItemService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {ServiceApp.class})
+@SpringBootTest(classes = {ManageServiceApp.class})
 public class ServiceTest {
 	
 	@Autowired

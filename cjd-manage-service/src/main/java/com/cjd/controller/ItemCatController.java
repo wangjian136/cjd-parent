@@ -37,6 +37,12 @@ public class ItemCatController {
 		return map;
 	}
 	
+	@RequestMapping("/show_item_cat_only")
+	public List<ItemCat> showItemCats(@RequestParam Long pid) {
+		List<ItemCat> list = itemCatService.show(pid);
+		return list;
+	}
+	
 	@RequestMapping("/get_item_cat")
 	public Map<String, Object> getItemCat(@RequestParam Long id) {
 		Map<String, Object> map = new HashMap<String, Object>();
