@@ -69,4 +69,7 @@ public interface ManageService {
 	
 	@RequestMapping("/category/delete_category")
 	public Map<String, Object> deleteCategory(@RequestBody(required = false) Category category);
+	
+	@RequestMapping("/content/show_content")
+	public Map<String, Object> showContent(@RequestParam int page,@RequestParam int rows,@RequestParam Long categoryId);
 }
