@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cjd.pojo.Category;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
 import com.cjd.pojo.ItemParam;
@@ -56,4 +57,16 @@ public interface ManageService {
 	
 	@RequestMapping("/item_param_item/get_item_param_item")
 	public ItemParamItem getItemParamByItem(@RequestParam Long itemId);
+	
+	@RequestMapping("/category/show_category")
+	public Map<String, Object> showCategory(@RequestParam Long pid);
+	
+	@RequestMapping("/category/save_category")
+	public Map<String, Object> saveCategory(@RequestBody(required = false) Category category);
+	
+	@RequestMapping("/category/update_category")
+	public Map<String, Object> updateCategory(@RequestBody(required = false) Category category);
+	
+	@RequestMapping("/category/delete_category")
+	public Map<String, Object> deleteCategory(@RequestBody(required = false) Category category);
 }
