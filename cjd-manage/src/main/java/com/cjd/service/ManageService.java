@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cjd.pojo.Category;
+import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
 import com.cjd.pojo.ItemParam;
@@ -72,4 +73,10 @@ public interface ManageService {
 	
 	@RequestMapping("/content/show_content")
 	public Map<String, Object> showContent(@RequestParam int page,@RequestParam int rows,@RequestParam Long categoryId);
+	
+	@RequestMapping("/content/save_content")
+	public Map<String, Object> save(@RequestBody(required = false) Content content);
+	
+	@RequestMapping("/content/delete_content")
+	public Map<String, Object> deleteContent(@RequestParam(name = "ids",required=true) List<String> ids);
 }

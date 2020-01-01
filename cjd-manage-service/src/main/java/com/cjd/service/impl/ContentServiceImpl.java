@@ -10,16 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cjd.dao.CategoryDao;
 import com.cjd.dao.ContentDao;
-import com.cjd.dao.ItemCatDao;
-import com.cjd.pojo.Category;
 import com.cjd.pojo.Content;
-import com.cjd.pojo.Item;
-import com.cjd.pojo.ItemCat;
-import com.cjd.service.CategoryService;
 import com.cjd.service.ContentService;
-import com.cjd.service.ItemCatService;
 
 @Service
 @Transactional
@@ -39,6 +32,25 @@ public class ContentServiceImpl implements ContentService{
 		Pageable pageable = PageRequest.of(page, rows);
 		Page<Content> pages = contentDao.findAll(example, pageable);
 		return pages;
+	}
+
+	@Override
+	public int insContent(Content content) {
+		Content con = contentDao.save(content);
+		if(con != null) {
+			return 1;
+		}
+		return -1;
+	}
+
+	@Override
+	public int delContentByIds(List<String> ids) {
+		int index = 0;
+		for (String id : ids) {
+			contentDao.deleteById(Long.parseLong(id));
+			index++;
+		}
+		return index;
 	}
 
 }
