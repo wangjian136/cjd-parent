@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cjd.pojo.Category;
 import com.cjd.pojo.EasyUiTree;
-import com.cjd.pojo.ItemCat;
 import com.cjd.service.CategoryService;
-import com.cjd.service.ItemCatService;
 
 @RestController
 @RequestMapping("/category")

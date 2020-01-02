@@ -7,7 +7,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  
  
 @EnableEurekaClient
-@EnableFeignClients
 @SpringBootApplication
 public class ItemServiceApp {
  

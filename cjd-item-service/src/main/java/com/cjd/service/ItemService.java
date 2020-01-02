@@ -1,5 +1,8 @@
 package com.cjd.service;
 
+import java.util.List;
+
+import com.cjd.pojo.ItemCat;
 import com.cjd.pojo.PortalMenu;
 
 public interface ItemService {
@@ -9,4 +12,7 @@ public interface ItemService {
 	 * @return
 	 */
 	public PortalMenu showCatMenu();
+	
+	//根据父id查找所有子分类
+	public List<ItemCat> show(long pid);
 }

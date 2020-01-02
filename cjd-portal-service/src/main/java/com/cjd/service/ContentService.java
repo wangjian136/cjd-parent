@@ -10,12 +10,6 @@ import com.cjd.pojo.ItemDesc;
 
 public interface ContentService {
 	
-	//查询全部分类内容
-	public Page<Content> selAllContent(int page, int rows, Long categoryId);
-	
-	public int insContent(Content content);
-	
-	//删除内容管理
-	public int delContentByIds(List<String> ids);
-	
+	//显示最近的前n个
+	public List<Content> selContentByCount(int count, boolean isSort);
 }
