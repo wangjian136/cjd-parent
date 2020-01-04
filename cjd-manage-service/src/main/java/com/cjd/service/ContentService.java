@@ -13,7 +13,7 @@ public interface ContentService {
 	//查询全部分类内容
 	public Page<Content> selAllContent(int page, int rows, Long categoryId);
 	
-	public int insContent(Content content);
+	public Content insContent(Content content);
 	
 	//删除内容管理
 	public int delContentByIds(List<String> ids);

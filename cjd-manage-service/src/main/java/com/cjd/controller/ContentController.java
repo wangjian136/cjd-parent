@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cjd.pojo.Content;
 import com.cjd.service.ContentService;
+import com.cjd.service.RedisService;
 import com.cjd.util.EasyUIJsonUtils;
 
 @RestController
@@ -22,6 +23,9 @@ public class ContentController {
 	
 	@Autowired
 	private ContentService contentService;
+	
+	@Autowired
+	private RedisService redisService;
 
 	@RequestMapping("/show_content")
 	public Map<String, Object> show(@RequestParam int page,@RequestParam int rows,@RequestParam Long categoryId) {
@@ -35,8 +39,10 @@ public class ContentController {
 		Date currentDate = new Date();
 		content.setCreated(currentDate);
 		content.setUpdated(currentDate);
-		int index = contentService.insContent(content);
-		if(index == 1) {
+		Content con = contentService.insContent(content);
+		if(con != null) {
+			redisService.delContent("cons", con.getId());
+			redisService.setContent("cons", con);
 			result.put("status", 200);
 		}
 		return result;
@@ -47,6 +53,7 @@ public class ContentController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int num = contentService.delContentByIds(ids);
 		if(num == ids.size()) {
+			
 			result.put("status", 200);
 		}
 		return result;

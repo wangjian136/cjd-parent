@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cjd.dao.ContentDao;
 import com.cjd.pojo.Content;
 import com.cjd.service.ContentService;
+import com.cjd.service.RedisService;
 
 @Service
 @Transactional
@@ -20,17 +21,27 @@ public class ContentServiceImpl implements ContentService{
 	
 	@Autowired
 	private ContentDao contentDao;
+	
+	@Autowired
+	private RedisService redisService;
 
 	@Override
 	public List<Content> selContentByCount(int count, boolean isSort) {
 		Pageable pageable = null;
-		if(isSort) {
-			pageable = PageRequest.of(0, count,Sort.by("updated").descending());
+		List<Content> contents = null;
+		long countL = count;
+		if(redisService.existsKey("cons")) {
+			contents = redisService.getContent("cons", 0L, countL, isSort);
 		}else {
-			pageable = PageRequest.of(0, count);
+			if(isSort) {
+				pageable = PageRequest.of(0, count,Sort.by("updated").descending());
+			}else {
+				pageable = PageRequest.of(0, count);
+			}
+			Page<Content> conPage = contentDao.findAll(pageable);
+			contents = conPage.getContent();
 		}
-		Page<Content> conPage = contentDao.findAll(pageable);
-		return conPage.getContent();
+		return contents;
 	}
 
 }
