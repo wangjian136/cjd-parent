@@ -14,5 +14,11 @@
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-core</artifactId>
 		</dependency>
+		
+		<!-- 配置springBoot的elasticsearch启动器 -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
 	</dependencies>
 </project>

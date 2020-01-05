@@ -19,6 +19,7 @@ import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemDescService;
 import com.cjd.service.ItemParamItemService;
 import com.cjd.service.ItemService;
+import com.cjd.service.SearchService;
 import com.cjd.util.EasyUIJsonUtils;
 import com.cjd.util.IDUtils;
 
@@ -30,7 +31,7 @@ public class ItemController {
 	private ItemService itemService;
 	
 	@Autowired
-	private ItemDescService itemDescService;
+	private SearchService searchService;
 	
 	@Autowired
 	private ItemParamItemService itemParamItemService;
@@ -39,6 +40,11 @@ public class ItemController {
 	public Map<String, Object> show(@RequestParam int page,@RequestParam int rows) {
 		Page<Item> pages = itemService.selAllItem(page, rows);
 		return EasyUIJsonUtils.convertPageToJson(pages);
+	}
+	
+	@RequestMapping("/show_all_item")
+	public List<Item> showAll() {
+		return itemService.selAllItem2();
 	}
 	
 	@RequestMapping("/delete_item")
@@ -105,6 +111,7 @@ public class ItemController {
 		index = itemService.insItemDesc(item, itemDesc, paramItem);
 		System.out.println("index:" + index);
 		if(index == 1) {
+			searchService.insItemES(item);
 			result.put("status", 200);
 		}
 		return result;

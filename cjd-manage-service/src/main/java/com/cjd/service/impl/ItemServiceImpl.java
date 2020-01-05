@@ -121,4 +121,9 @@ public class ItemServiceImpl implements ItemService{
 		}
 	}
 
+	@Override
+	public List<Item> selAllItem2() {
+		return itemDao.findAll();
+	}
+
 }

@@ -74,5 +74,7 @@
 		<module>cjd-portal-service</module>
 		<module>cjd-item-service</module>
 		<module>cjd-redis</module>
+		<module>cjd-search</module>
+		<module>cjd-search-service</module>
 	</modules>
 </project>

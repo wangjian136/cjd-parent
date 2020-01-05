@@ -5,10 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
 
 /**
  * 商品实体类
@@ -19,28 +21,18 @@ import javax.persistence.Table;
 @Table(name = "tb_item")
 public class Item implements Serializable{
     private Long id;
-
     private String title;
-
     private String sellPoint;
-
     private Long price;
-
     private Integer num;
-
     private String barcode;
-
     private String image;
-
     private Long cid;
-
     private Byte status;
-
     private Date created;
-
     private Date updated;
 
-    @Id
+	@Id
     public Long getId() {
         return id;
     }

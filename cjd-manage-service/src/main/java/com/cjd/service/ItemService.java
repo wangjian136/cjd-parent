@@ -11,6 +11,8 @@ import com.cjd.pojo.ItemParamItem;
 public interface ItemService {
 	//查询全部商品
 	public Page<Item> selAllItem(int page, int rows);
+	
+	public List<Item> selAllItem2();
 	//删除商品
 	public int delItems(List<Item> items);
 	//下架商品
