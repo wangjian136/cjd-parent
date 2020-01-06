@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cjd.dao.ItemCatDao;
+import com.cjd.dao.ItemDao;
+import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemCat;
+import com.cjd.pojo.ItemES;
 import com.cjd.pojo.PortalMenu;
 import com.cjd.pojo.PortalMenuNode;
 import com.cjd.service.ItemService;
+import com.cjd.util.ItemUtils;
 
 @Service
 @Transactional
@@ -20,6 +24,9 @@ public class ItemServiceImpl implements ItemService{
 	
 	@Autowired
 	private ItemCatDao itemCatDao;
+	
+	@Autowired
+	private ItemDao itemDao;
 	
 	@Override
 	public List<ItemCat> show(long pid) {
@@ -53,5 +60,11 @@ public class ItemServiceImpl implements ItemService{
 		}
 		
 		return listNode;
+	}
+
+	@Override
+	public ItemES getItemESById(long id) {
+		Item item = itemDao.findById(id).get();
+		return ItemUtils.ItemChangeToES(item);
 	}
 }

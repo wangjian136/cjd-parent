@@ -10,13 +10,6 @@
 	<artifactId>cjd-item-service</artifactId>
 	
 	<dependencies>
-	
-		<dependency>
-			<groupId>com.cjd</groupId>
-			<artifactId>cjd-pojo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		
 		<dependency>
 			<groupId>com.cjd</groupId>
 			<artifactId>cjd-commons</artifactId>

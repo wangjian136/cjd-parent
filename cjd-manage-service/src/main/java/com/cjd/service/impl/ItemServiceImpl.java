@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cjd.dao.ItemDao;
 import com.cjd.dao.ItemDescDao;
 import com.cjd.dao.ItemParamItemDao;
+import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
 import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemService;
+import com.cjd.service.RedisService;
 
 @Service
 @Transactional
@@ -30,12 +35,29 @@ public class ItemServiceImpl implements ItemService{
 	
 	@Autowired
 	private ItemParamItemDao itemParamItemDao;
+	
+	@Autowired
+	private RedisService redisService;
 
 	@Override
 	public Page<Item> selAllItem(int page, int rows) {
+		Page<Item> pages = null;
 		page = page - 1;
 		Pageable pageable = PageRequest.of(page, rows);
-		Page<Item> pages = itemDao.findAll(pageable);
+		if(redisService.existsKey("items")) {
+			long start = page * rows;
+			long end = (page + 1) * rows;
+			List<Item> items = redisService.getItem("items", start, end, false);
+			List<Item> totalItems = redisService.getItem("items", 0L, -1L, false);
+			pages = new PageImpl<Item>(items,pageable,totalItems.size());
+		}else {
+			pages = itemDao.findAll(pageable);
+			List<Item> items = itemDao.findAll(Sort.by("created").ascending());
+			for (Item item : items) {
+				redisService.setItem("items", item);
+			}
+		}
+		
 		return pages;
 	}
 

@@ -3,6 +3,7 @@ package com.cjd.service;
 import java.util.List;
 
 import com.cjd.pojo.ItemCat;
+import com.cjd.pojo.ItemES;
 import com.cjd.pojo.PortalMenu;
 
 public interface ItemService {
@@ -15,4 +16,6 @@ public interface ItemService {
 	
 	//根据父id查找所有子分类
 	public List<ItemCat> show(long pid);
+	
+	public ItemES getItemESById(long id);
 }
