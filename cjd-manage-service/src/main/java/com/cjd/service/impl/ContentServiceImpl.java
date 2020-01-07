@@ -72,7 +72,7 @@ public class ContentServiceImpl implements ContentService{
 		int index = 0;
 		for (String id : ids) {
 			contentDao.deleteById(Long.parseLong(id));
-			redisService.delContent("cons", Long.parseLong(id));
+			redisService.delZsetObject("cons", Long.parseLong(id));
 			index++;
 		}
 		return index;

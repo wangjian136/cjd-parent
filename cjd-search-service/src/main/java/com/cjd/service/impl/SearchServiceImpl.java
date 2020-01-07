@@ -7,11 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +27,8 @@ import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
+import org.springframework.data.elasticsearch.core.query.UpdateQuery;
+import org.springframework.data.elasticsearch.core.query.UpdateQueryBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +36,9 @@ import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemES;
 import com.cjd.service.ManageService;
 import com.cjd.service.SearchService;
+import com.cjd.util.ItemUtils;
+import com.cjd.util.JsonUtils;
+import com.cjd.util.MapUtils;
 
 @Service
 @Transactional
@@ -121,17 +129,34 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public void insItemES(Item item) {
-		ItemES itemES = new ItemES(item.getId(), item.getTitle(), item.getSellPoint(), item.getPrice(), item.getNum(), item.getBarcode(), item.getImage(), item.getCid(), item.getStatus(), item.getCreated(), item.getUpdated(), null);
-		String image = item.getImage();
-		if(image != null && !"".equals(image)) {
-			itemES.setImages(image.split(","));
-		}
+		ItemES itemES = ItemUtils.ItemChangeToES(item);
 		IndexQuery indexQuery = new IndexQueryBuilder()
 			      .withId(itemES.getId().toString())
 			      .withObject(itemES)
 			      .build();
 		String documentId = elasticsearchRestTemplate.index(indexQuery);
 		System.out.println(documentId);
+	}
+
+	@Override
+	public void updateItemES(Item item) {
+		String id = item.getId().toString();
+		ItemES itemES = ItemUtils.ItemChangeToES(item);
+		Map<String, Object> map;
+		try {
+			map = MapUtils.objectToMap(itemES);
+			UpdateRequest updateRequest = new UpdateRequest("item", "_doc", id).doc(map);
+			UpdateQuery query = new UpdateQueryBuilder()
+					.withClass(ItemES.class)
+					.withId(id)
+					.withUpdateRequest(updateRequest)
+					.build();
+			UpdateResponse update = elasticsearchRestTemplate.update(query);
+			System.out.println(update.getId());
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

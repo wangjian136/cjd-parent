@@ -19,6 +19,7 @@ import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemDescService;
 import com.cjd.service.ItemParamItemService;
 import com.cjd.service.ItemService;
+import com.cjd.service.RedisService;
 import com.cjd.service.SearchService;
 import com.cjd.util.EasyUIJsonUtils;
 import com.cjd.util.IDUtils;
@@ -31,10 +32,8 @@ public class ItemController {
 	private ItemService itemService;
 	
 	@Autowired
-	private SearchService searchService;
-	
-	@Autowired
 	private ItemParamItemService itemParamItemService;
+	
 
 	@RequestMapping("/show_item")
 	public Map<String, Object> show(@RequestParam int page,@RequestParam int rows) {
@@ -111,7 +110,7 @@ public class ItemController {
 		index = itemService.insItemDesc(item, itemDesc, paramItem);
 		System.out.println("index:" + index);
 		if(index == 1) {
-			searchService.insItemES(item);
+			
 			result.put("status", 200);
 		}
 		return result;

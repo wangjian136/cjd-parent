@@ -11,4 +11,6 @@ public interface SearchService {
 	public Map<String, Object> queryForES(String query, int page, int rows);
 	
 	public void insItemES(Item item);
+	
+	public void updateItemES(Item item);
 }

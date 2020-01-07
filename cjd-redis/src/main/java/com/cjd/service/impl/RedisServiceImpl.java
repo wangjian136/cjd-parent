@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
+import com.cjd.pojo.ItemDesc;
 import com.cjd.service.RedisService;
 
 @Service
@@ -72,8 +73,39 @@ public class RedisServiceImpl implements RedisService{
 	}
 
 	@Override
-	public void delContent(String key, Long id) {
+	public void delZsetObject(String key, Long id) {
 		redisTemplate.opsForZSet().removeRangeByScore(key, id, id);
+	}
+
+	@Override
+	public Item getZsetItem(String key, Long id) {
+		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Item.class));
+		Set<Object> rangeByScore = redisTemplate.opsForZSet().rangeByScore(key, id, id);
+		if(rangeByScore != null && rangeByScore.size() > 0) {
+			for (Object obj : rangeByScore) {
+				Item item = (Item) obj;
+				return item;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void setHashItemDesc(String key, ItemDesc itemDesc) {
+		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(ItemDesc.class));
+		redisTemplate.opsForHash().put("itemdescs", itemDesc.getItemId().toString(), itemDesc);
+	}
+
+	@Override
+	public ItemDesc getHashItemDesc(String key, String subKey) {
+		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(ItemDesc.class));
+		ItemDesc desc = (ItemDesc) redisTemplate.opsForHash().get(key, subKey);
+		return desc;
+	}
+
+	@Override
+	public void delHashObject(String key, String ... hashKeys) {
+		redisTemplate.opsForHash().delete(key, hashKeys);
 	}
 
 	

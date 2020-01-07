@@ -22,6 +22,7 @@ import com.cjd.pojo.ItemDesc;
 import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemService;
 import com.cjd.service.RedisService;
+import com.cjd.service.SearchService;
 
 @Service
 @Transactional
@@ -37,6 +38,9 @@ public class ItemServiceImpl implements ItemService{
 	private ItemParamItemDao itemParamItemDao;
 	
 	@Autowired
+	private SearchService searchService;
+	
+	@Autowired
 	private RedisService redisService;
 
 	@Override
@@ -47,8 +51,8 @@ public class ItemServiceImpl implements ItemService{
 		if(redisService.existsKey("items")) {
 			long start = page * rows;
 			long end = (page + 1) * rows;
-			List<Item> items = redisService.getItem("items", start, end, false);
-			List<Item> totalItems = redisService.getItem("items", 0L, -1L, false);
+			List<Item> items = redisService.getItems("items", start, end, false);
+			List<Item> totalItems = redisService.getItems("items", 0L, -1L, false);
 			pages = new PageImpl<Item>(items,pageable,totalItems.size());
 		}else {
 			pages = itemDao.findAll(pageable);
@@ -124,9 +128,22 @@ public class ItemServiceImpl implements ItemService{
 			Item i = itemDao.save(item);
 			if(i != null) {
 				index+=1;
+				//商品信息保存后加入ES,Redis
+				if (item.getId() == null) {
+					searchService.insItemES(i);
+				}else {
+					searchService.updateItemES(i);
+					redisService.delZsetObject("items", item.getId());
+				}
+				//商品信息保存后加入Redis
+				redisService.setItem("items", i);
 			}
 			ItemDesc d = itemDescDao.save(desc);
 			if(d != null) {
+				if (desc.getItemId() != null) {
+					redisService.delHashObject("itemdescs", desc.getItemId().toString());
+				}
+				redisService.setItemDesc("itemdescs", d);
 				index+=1;
 			}
 			ItemParamItem p = itemParamItemDao.save(paramItem);

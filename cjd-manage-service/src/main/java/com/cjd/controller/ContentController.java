@@ -41,7 +41,7 @@ public class ContentController {
 		content.setUpdated(currentDate);
 		Content con = contentService.insContent(content);
 		if(con != null) {
-			redisService.delContent("cons", con.getId());
+			redisService.delZsetObject("cons", con.getId());
 			redisService.setContent("cons", con);
 			result.put("status", 200);
 		}

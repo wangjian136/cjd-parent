@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
+import com.cjd.pojo.ItemDesc;
 import com.cjd.service.RedisService;
 
 @RestController
@@ -33,18 +34,38 @@ public class RedisController {
 		redisService.setZsetItem(key, item);
 	}
 	
+	@RequestMapping("/redis/setItemDesc")
+	public void setItemDesc(@RequestParam String key,@RequestBody(required = false) ItemDesc itemDesc) {
+		redisService.setHashItemDesc(key, itemDesc);
+	}
+	
+	@RequestMapping("/redis/getItem")
+	public Item getItem(@RequestParam String key, @RequestParam Long id) {
+		return redisService.getZsetItem(key, id);
+	}
+	
+	@RequestMapping("/redis/getItemDesc")
+	public ItemDesc getItemDesc(@RequestParam String key, @RequestParam String subKey) {
+		return redisService.getHashItemDesc(key, subKey);
+	}
+	
 	@RequestMapping("/redis/getContent")
 	public List<Content> getContent(@RequestParam String key, @RequestParam Long start, @RequestParam Long end,@RequestParam boolean isSort) {
 		return redisService.getContents(key, start, end, isSort);
 	}
 	
-	@RequestMapping("/redis/getItem")
-	public List<Item> getItem(@RequestParam String key, @RequestParam Long start, @RequestParam Long end,@RequestParam boolean isSort) {
+	@RequestMapping("/redis/getItems")
+	public List<Item> getItems(@RequestParam String key, @RequestParam Long start, @RequestParam Long end,@RequestParam boolean isSort) {
 		return redisService.getItems(key, start, end, isSort);
 	}
 	
-	@RequestMapping("/redis/delContent")
-	public void delContent(@RequestParam String key, @RequestParam Long id) {
-		redisService.delContent(key, id);
+	@RequestMapping("/redis/delZsetObject")
+	public void delZsetObject(@RequestParam String key, @RequestParam Long id) {
+		redisService.delZsetObject(key, id);
+	}
+	
+	@RequestMapping("/redis/delHashObject")
+	public void delHashObject(@RequestParam String key, @RequestBody(required = false) String ... hashKeys) {
+		redisService.delHashObject(key, hashKeys);
 	}
 }

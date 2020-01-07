@@ -10,4 +10,7 @@ public interface SearchService {
 
 	@RequestMapping("/es/ins")
 	public void insItemES(@RequestBody(required = false) Item item);
+	
+	@RequestMapping("/es/update")
+	public void updateItemES(@RequestBody(required = false) Item item);
 }

@@ -36,4 +36,9 @@ public class SearchController {
 	public void insItemES(@RequestBody(required = false) Item item) {
 		searchService.insItemES(item);
 	}
+	
+	@RequestMapping("/es/update")
+	public void updateItemES(@RequestBody(required = false) Item item) {
+		searchService.updateItemES(item);
+	}
 }
