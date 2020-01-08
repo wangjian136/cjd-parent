@@ -279,9 +279,24 @@
 			getItemParam:function(itemId) {
 				//如果没有查询过规格参数，就做请求
 				if (!itemControl.haveParam) {
-					$.get(itemControl.param.paramUrl+itemId+".html", function(data){
+					$.getJSON(itemControl.param.paramUrl+itemId+".html", function(data){
+						 var paramData = data;
+	   					 var html = "<ul>";
+	   					 for(var i in paramData){
+	   						 var pd = paramData[i];
+	   						 html+="<li><table>";
+	   						 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
+	   						 
+	   						 for(var j in pd.params){
+	   							 var ps = pd.params[j];
+	   							 html+="<tr><td colspan=\"2\" class=\"param\"></td><td class=\"param\"><span>"+ps.k+"</span>: </td><td>"+ps.v+"</td></tr>";
+	   						 }
+	   						 
+	   						 html+="</li></table><hr/>";
+	   					 }
+	   					 html+= "</ul>";
 						//返回商品规格的html，直接显示到页面
-						$("#product-detail-2").append(data);
+						$("#product-detail-2").append(html);
 						//更改flag状态
 						itemControl.haveParam = true;
 					});

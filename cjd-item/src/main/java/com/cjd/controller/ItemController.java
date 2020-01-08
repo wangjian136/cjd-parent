@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemService;
 import com.cjd.service.ManageService;
 import com.cjd.service.RedisService;
@@ -40,6 +41,13 @@ public class ItemController {
 	public String showItemDesc(@PathVariable long itemId){
 		ItemDesc itemDesc = manageService.getItemDesc(itemId);
 		return itemDesc.getItemDesc();
+	}
+	
+	@RequestMapping("/item/param/{itemId}.html")
+	@ResponseBody
+	public String showItemParam(@PathVariable long itemId){
+		ItemParamItem itemParam = manageService.getItemParamByItem(itemId);
+		return itemParam.getParamData();
 	}
 	
 	@RequestMapping("/rest/itemcat/all")
