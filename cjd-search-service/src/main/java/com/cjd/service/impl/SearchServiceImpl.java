@@ -23,6 +23,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.aggregation.impl.AggregatedPageImpl;
+import org.springframework.data.elasticsearch.core.query.GetQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -65,13 +66,18 @@ public class SearchServiceImpl implements SearchService {
 		}
 		
 		for (ItemES item : itemESs) {
-			//存入es
-			/*IndexQuery indexQuery = new IndexQueryBuilder()
-				      .withId(item.getId().toString())
-				      .withObject(item)
-				      .build();
-			String documentId = elasticsearchRestTemplate.index(indexQuery);
-			System.out.println(documentId);*/
+			ItemES obj = elasticsearchRestTemplate.queryForObject(GetQuery.getById(item.getId().toString()), ItemES.class);
+			if(obj == null) {
+				//存入es
+				IndexQuery indexQuery = new IndexQueryBuilder()
+					      .withId(item.getId().toString())
+					      .withObject(item)
+					      .build();
+				String documentId = elasticsearchRestTemplate.index(indexQuery);
+				System.out.println(documentId);
+			}else {
+				System.out.println("obj is exists!");
+			}
 		}
 	}
 

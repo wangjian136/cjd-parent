@@ -1,10 +1,4 @@
-server:
-    port: 8761
-eureka:
-    instance:
-        hostname: localhost
-    client:
-        fetchRegistry: false
-        registerWithEureka: false
-        serviceUrl:
-            defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+spring:
+    # 环境 dev:开发环境|test:测试环境|prod:生产环境
+    profiles:
+        active: test #激活的配置文件

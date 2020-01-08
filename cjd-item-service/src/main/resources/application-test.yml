@@ -1,0 +1,19 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://10.2.8.132:8761/eureka/,http://10.2.8.132:8762/eureka/
+server:
+    port: 8801
+spring:
+    application:
+        name: item-service
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://10.2.8.132:3306/ego
+        username: admin
+        password: wonders
+        type: com.alibaba.druid.pool.DruidDataSource
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true

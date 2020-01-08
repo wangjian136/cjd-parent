@@ -1,0 +1,18 @@
+eureka:
+    instance:
+        hostname: 10.2.100.84
+    client:
+        serviceUrl:
+            defaultZone: http://10.2.8.132:8761/eureka/,http://10.2.8.132:8762/eureka/
+server:
+    port: 8804
+spring:
+    application:
+        name: search-service
+    data:
+        elasticsearch:
+            repositories:
+                enabled: true
+    elasticsearch:
+        rest:
+            uris: http://10.2.8.132:9200

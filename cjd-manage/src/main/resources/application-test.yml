@@ -1,0 +1,21 @@
+eureka:
+    instance:
+        hostname: 10.2.100.84
+    client:
+        serviceUrl:
+            defaultZone: http://10.2.8.132:8761/eureka/,http://10.2.8.132:8762/eureka/
+server:
+    port: 8090
+spring:
+    application:
+        name: cjd-manage
+    mvc: 
+        view: 
+              suffix: .jsp
+ftpclient:
+    basepath: E:/ftp/images
+    filepath: /
+    host: 10.2.8.132
+    password: 111111
+    username: mzy
+    port: 21
