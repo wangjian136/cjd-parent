@@ -92,5 +92,7 @@
 		<module>cjd-search</module>
 		<module>cjd-search-service</module>
 		<module>cjd-admin</module>
+		<module>cjd-passport</module>
+		<module>cjd-passport-service</module>
 	</modules>
 </project>

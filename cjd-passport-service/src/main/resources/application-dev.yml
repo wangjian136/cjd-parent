@@ -5,10 +5,10 @@ eureka:
         serviceUrl:
             defaultZone: http://localhost:8761/eureka/
 server:
-    port: 8802
+    port: 8805
 spring:
     application:
-        name: manage-service
+        name: passport-service
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/ego

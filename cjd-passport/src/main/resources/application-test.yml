@@ -1,0 +1,14 @@
+eureka:
+    instance:
+        hostname: 10.2.100.84
+    client:
+        serviceUrl:
+            defaultZone: http://10.2.8.132:8761/eureka/,http://10.2.8.132:8762/eureka/
+server:
+    port: 8084
+spring:
+    application:
+        name: cjd-passport
+    mvc: 
+        view: 
+              suffix: .jsp
