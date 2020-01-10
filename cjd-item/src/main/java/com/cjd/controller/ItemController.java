@@ -51,7 +51,8 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/rest/itemcat/all")
-	public Object  showMenu(String callback) throws Exception{
+	@ResponseBody
+	public String  showMenu(String callback) throws Exception{
         return itemService.showMenu(callback);
 	}
 }

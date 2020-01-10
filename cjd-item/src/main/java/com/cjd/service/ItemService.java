@@ -10,7 +10,7 @@ import com.cjd.pojo.ItemES;
 public interface ItemService {
 
 	@RequestMapping("/itemcat/all")
-	public Object showMenu(@RequestParam String callback) throws Exception;
+	public String showMenu(@RequestParam String callback) throws Exception;
 	
 	@RequestMapping("/item/show")
 	public ItemES showItem(@RequestParam long id);

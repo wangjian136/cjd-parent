@@ -22,7 +22,7 @@ public class ItemController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/itemcat/all")
-	public Object  showMenu(@RequestParam String callback) throws Exception{
+	public String showMenu(@RequestParam String callback) throws Exception{
 		String jsonStr = JsonUtils.objectToJsonStr(itemService.showCatMenu());
         return callback + "("+jsonStr+");";
 	}
