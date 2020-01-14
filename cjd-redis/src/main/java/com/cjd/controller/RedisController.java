@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.User;
 import com.cjd.service.RedisService;
 
 @RestController
@@ -22,6 +23,11 @@ public class RedisController {
 	@RequestMapping("/redis/existsKey")
 	public boolean existsHashKey(@RequestParam String key) {
 		return redisService.exists(key);
+	}
+	
+	@RequestMapping("/redis/setUser")
+	public void setUser(@RequestParam String key,@RequestBody(required = false) User user) {
+		redisService.setStringUser(key, user);
 	}
 	
 	@RequestMapping("/redis/setContent")
@@ -37,6 +43,11 @@ public class RedisController {
 	@RequestMapping("/redis/setItemDesc")
 	public void setItemDesc(@RequestParam String key,@RequestBody(required = false) ItemDesc itemDesc) {
 		redisService.setHashItemDesc(key, itemDesc);
+	}
+	
+	@RequestMapping("/redis/getUser")
+	public User getUser(@RequestParam String key) {
+		return redisService.getStringUser(key);
 	}
 	
 	@RequestMapping("/redis/getItem")

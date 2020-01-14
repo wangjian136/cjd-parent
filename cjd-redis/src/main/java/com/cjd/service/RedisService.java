@@ -4,16 +4,21 @@ import java.util.List;
 import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.User;
 
 public interface RedisService {
 
 	public boolean exists(String key);
+	
+	public void setStringUser(String key, User user);
 	
 	public void setZsetContent(String key, Content content);
 	
 	public void setZsetItem(String key, Item item);
 	
 	public void setHashItemDesc(String key, ItemDesc itemDesc);
+	
+	public User getStringUser(String key);
 	
 	public ItemDesc getHashItemDesc(String key,String subKey);
 	

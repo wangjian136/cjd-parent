@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.User;
 import com.cjd.service.RedisService;
 
 @Service
@@ -106,6 +108,19 @@ public class RedisServiceImpl implements RedisService{
 	@Override
 	public void delHashObject(String key, String ... hashKeys) {
 		redisTemplate.opsForHash().delete(key, hashKeys);
+	}
+
+	@Override
+	public void setStringUser(String key, User user) {
+		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(User.class));
+		redisTemplate.opsForValue().set(key, user, 1, TimeUnit.DAYS);
+	}
+
+	@Override
+	public User getStringUser(String key) {
+		redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(User.class));
+		User user = (User) redisTemplate.opsForValue().get(key);
+		return user;
 	}
 
 	
