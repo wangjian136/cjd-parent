@@ -19,6 +19,7 @@ import com.cjd.dao.ItemParamItemDao;
 import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
 import com.cjd.pojo.ItemDesc;
+import com.cjd.pojo.ItemES;
 import com.cjd.pojo.ItemParamItem;
 import com.cjd.service.ItemService;
 import com.cjd.service.RedisService;
@@ -72,6 +73,13 @@ public class ItemServiceImpl implements ItemService{
 				item.setStatus((byte) 3);
 			}
 			itemDao.saveAll(items);
+			for (Item item : items) {
+				redisService.delZsetObject("items", item.getId());
+				//商品信息保存后加入Redis
+				redisService.setItem("items", item);
+				
+				searchService.updateItemES(item);
+			}
 			return 1;
 		}
 		return -1;
@@ -79,12 +87,20 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public List<Item> selItemByIds(List<String> ids) {
-		List<Long> newIds = new ArrayList<Long>();
-		for (String id : ids) {
-			Long newId = Long.parseLong(id);
-			newIds.add(newId);
+		List<Item> items = new ArrayList<Item>();
+		if(redisService.existsKey("items")) {
+			for (String id : ids) {
+				Item item = redisService.getItem("items", Long.parseLong(id));
+				items.add(item);
+			}
+		}else {
+			List<Long> newIds = new ArrayList<Long>();
+			for (String id : ids) {
+				Long newId = Long.parseLong(id);
+				newIds.add(newId);
+			}
+			items = itemDao.findAllById(newIds);
 		}
-		List<Item> items = itemDao.findAllById(newIds);
 		return items;
 	}
 
@@ -95,6 +111,13 @@ public class ItemServiceImpl implements ItemService{
 				item.setStatus((byte) 2);
 			}
 			itemDao.saveAll(items);
+			for (Item item : items) {
+				redisService.delZsetObject("items", item.getId());
+				//商品信息保存后加入Redis
+				redisService.setItem("items", item);
+				
+				searchService.updateItemES(item);
+			}
 			return 1;
 		}
 		return -1;
@@ -107,6 +130,13 @@ public class ItemServiceImpl implements ItemService{
 				item.setStatus((byte) 1);
 			}
 			itemDao.saveAll(items);
+			for (Item item : items) {
+				redisService.delZsetObject("items", item.getId());
+				//商品信息保存后加入Redis
+				redisService.setItem("items", item);
+				
+				searchService.updateItemES(item);
+			}
 			return 1;
 		}
 		return -1;
@@ -129,7 +159,8 @@ public class ItemServiceImpl implements ItemService{
 			if(i != null) {
 				index+=1;
 				//商品信息保存后加入ES,Redis
-				if (item.getId() == null) {
+				ItemES findItemES = searchService.findItemES(item.getId());
+				if (findItemES == null) {
 					searchService.insItemES(i);
 				}else {
 					searchService.updateItemES(i);

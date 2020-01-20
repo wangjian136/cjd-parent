@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cjd.pojo.Content;
 import com.cjd.pojo.Item;
+import com.cjd.pojo.ItemES;
 import com.cjd.service.SearchService;
 
 @RestController
@@ -32,6 +33,11 @@ public class SearchController {
 		return searchService.queryForES(query, page, rows);
 	}
 	
+	@RequestMapping("/es/find")
+	public ItemES findItemES(@RequestParam Long id) {
+		return searchService.findItemById(id);
+	}
+	
 	@RequestMapping("/es/ins")
 	public void insItemES(@RequestBody(required = false) Item item) {
 		searchService.insItemES(item);
@@ -40,5 +46,10 @@ public class SearchController {
 	@RequestMapping("/es/update")
 	public void updateItemES(@RequestBody(required = false) Item item) {
 		searchService.updateItemES(item);
+	}
+	
+	@RequestMapping("/es/delete")
+	public void deleteItemES(@RequestBody(required = false) Item item) {
+		searchService.delItemES(item);
 	}
 }

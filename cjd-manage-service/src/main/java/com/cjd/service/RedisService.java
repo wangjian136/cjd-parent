@@ -32,6 +32,9 @@ public interface RedisService {
 	@RequestMapping("/redis/getItemDesc")
 	public ItemDesc getItemDesc(@RequestParam String key, @RequestParam String subKey);
 	
+	@RequestMapping("/redis/getItem")
+	public Item getItem(@RequestParam String key, @RequestParam Long id);
+	
 	@RequestMapping("/redis/getItems")
 	public List<Item> getItems(@RequestParam String key, @RequestParam Long start, @RequestParam Long end,@RequestParam boolean isSort);
 	

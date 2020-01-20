@@ -9,6 +9,7 @@ import java.util.Map;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -89,6 +90,7 @@ public class SearchServiceImpl implements SearchService {
 		String preTag = "<span style='color:red'>";
 		String postTag = "</span>";
 		SearchQuery searchQuery=new NativeSearchQueryBuilder().
+				withFilter(QueryBuilders.matchQuery("status","1")).
 				withQuery(QueryBuilders.matchQuery("title",query)).
 				withHighlightFields(new HighlightBuilder.Field("title").preTags(preTag).postTags(postTag))
 				.build();
@@ -163,6 +165,18 @@ public class SearchServiceImpl implements SearchService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ItemES findItemById(Long id) {
+		ItemES obj = elasticsearchRestTemplate.queryForObject(GetQuery.getById(id.toString()), ItemES.class);
+		return obj;
+	}
+
+	@Override
+	public void delItemES(Item item) {
+		String documentId = elasticsearchRestTemplate.delete(ItemES.class, item.getId().toString());
+		System.out.println(documentId);
 	}
 
 }
