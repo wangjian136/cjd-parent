@@ -1,9 +1,9 @@
 eureka:
     instance:
-        hostname: 10.2.100.84
+        prefer-ip-address: true
     client:
         serviceUrl:
-            defaultZone: http://10.2.8.132:8761/eureka/,http://10.2.8.132:8762/eureka/
+            defaultZone: http://localhost:8761/eureka/
 server:
     port: 8090
 spring:
@@ -13,9 +13,9 @@ spring:
         view: 
               suffix: .jsp
 ftpclient:
-    basepath: E:/ftp/images
+    basepath: E:/files/
     filepath: /
-    host: 10.2.8.132
-    password: 111111
-    username: mzy
+    host: 192.168.0.6
+    password: 1
+    username: Administrator
     port: 21

@@ -1,9 +1,9 @@
 eureka:
     instance:
-        hostname: 10.2.100.84
+        prefer-ip-address: true
     client:
         serviceUrl:
-            defaultZone: http://10.2.8.132:8761/eureka/,http://10.2.8.132:8762/eureka/
+            defaultZone: http://localhost:8761/eureka/
 server:
     port: 8803
 spring:
@@ -11,9 +11,9 @@ spring:
         name: portal-service
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://10.2.8.132:3306/ego
-        username: admin
-        password: wonders
+        url: jdbc:mysql://192.168.0.6:3306/ego
+        username: root
+        password: root
         type: com.alibaba.druid.pool.DruidDataSource
     jpa:
         hibernate:

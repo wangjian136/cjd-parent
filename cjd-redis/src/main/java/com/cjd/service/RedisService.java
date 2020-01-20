@@ -24,6 +24,8 @@ public interface RedisService {
 	
 	public Item getZsetItem(String key, Long id);
 	
+	public void delStringObject(String key);
+	
 	public void delZsetObject(String key, Long id);
 	
 	public void delHashObject(String key, String ... hashKeys);

@@ -1,6 +1,8 @@
 package com.cjd.controller;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,6 +23,7 @@ import com.cjd.service.PassPortService;
 import com.cjd.service.RedisService;
 import com.cjd.util.CookieUtils;
 import com.cjd.util.JsonUtils;
+import com.cjd.util.MD5Utils;
 import com.sun.org.apache.regexp.internal.recompile;
 
 @Controller
@@ -43,6 +46,30 @@ public class PassPortController {
 		return "/register";
 	}
 	
+	@RequestMapping("/user/check/{value}/{type}")
+	@ResponseBody
+	public Object checkUser(@PathVariable String value,@PathVariable String type, @RequestParam(value = "callback",required = false) String callback) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<User> checkUser = passPortService.checkUser(value, type);
+		map.put("status", "200");
+		map.put("msg", "OK");
+		if(checkUser != null && checkUser.size() > 0) {
+			map.put("data", false);
+		}else {
+			map.put("data", true);
+		}
+		if(callback != null && !"".equals(callback)) {
+			String jsonStr = "";
+			try {
+				jsonStr = JsonUtils.objectToJsonStr(map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return callback + "("+jsonStr+");";
+		}
+		return map;
+	}
+	
 	@RequestMapping("/user/login")
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request, HttpServletResponse response, String username, String password) {
@@ -62,6 +89,24 @@ public class PassPortController {
 		return map;
 	}
 	
+	@RequestMapping("/user/register")
+	@ResponseBody
+	public Map<String, Object> register(HttpServletRequest request, HttpServletResponse response, User user) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Date currDate = new Date();
+		user.setCreated(currDate);
+		user.setUpdated(currDate);
+		String md5Password = MD5Utils.string2MD5(user.getPassword());
+		user.setPassword(md5Password);
+		User saveUser = passPortService.saveUser(user);
+		if(saveUser.getId() != null) {
+			map.put("status", "200");
+		}else {
+			map.put("status", "500");
+		}
+		return map;
+	}
+	
 	
 	@RequestMapping("/user/token/{_token}")
 	@ResponseBody
@@ -76,6 +121,27 @@ public class PassPortController {
 		}else {
 			map.put("msg","fail");
 		}
+		if(callback != null && !"".equals(callback)) {
+			String jsonStr = "";
+			try {
+				jsonStr = JsonUtils.objectToJsonStr(map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return callback + "("+jsonStr+");";
+		}
+		return map;
+	}
+	
+	
+	@RequestMapping("/user/logout/{_token}")
+	@ResponseBody
+	public Object logout(HttpServletRequest request, HttpServletResponse response,@PathVariable String _token,@RequestParam String callback) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		redisService.delStringObject(_token);
+		CookieUtils.deleteCookie(request, response, "TT_TOKEN");
+		map.put("status", "200");
+		map.put("msg", "OK");
 		if(callback != null && !"".equals(callback)) {
 			String jsonStr = "";
 			try {

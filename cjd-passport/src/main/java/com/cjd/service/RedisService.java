@@ -15,4 +15,7 @@ public interface RedisService {
 	
 	@RequestMapping("/redis/getUser")
 	public User getUser(@RequestParam String key);
+	
+	@RequestMapping("/redis/delStringObject")
+	public void delStringObject(@RequestParam String key);
 }

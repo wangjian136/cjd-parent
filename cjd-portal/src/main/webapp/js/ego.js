@@ -35,6 +35,7 @@ $(function(){
 			jsonpCallback:'abc',
 			success:function(data){
 				if(data.status==200){
+					alert("注销成功！");
 					$("#loginbar").html('您好！欢迎来到易购！<a href="javascript:login()">[登录]</a>&nbsp;<a href="javascript:regist()">[免费注册]</a>');
 				}
 			}

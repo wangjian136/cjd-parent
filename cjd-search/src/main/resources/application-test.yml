@@ -1,9 +1,9 @@
 eureka:
     instance:
-        hostname: 10.2.100.84
+        prefer-ip-address: true
     client:
         serviceUrl:
-            defaultZone: http://10.2.8.132:8761/eureka/,http://10.2.8.132:8762/eureka/
+            defaultZone: http://localhost:8761/eureka/
 server:
     port: 8083
 spring:

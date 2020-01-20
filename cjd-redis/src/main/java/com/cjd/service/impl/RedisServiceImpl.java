@@ -123,6 +123,11 @@ public class RedisServiceImpl implements RedisService{
 		return user;
 	}
 
+	@Override
+	public void delStringObject(String key) {
+		redisTemplate.delete(key);
+	}
+
 	
 	
 }

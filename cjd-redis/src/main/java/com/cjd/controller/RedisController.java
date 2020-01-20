@@ -79,4 +79,9 @@ public class RedisController {
 	public void delHashObject(@RequestParam String key, @RequestBody(required = false) String ... hashKeys) {
 		redisService.delHashObject(key, hashKeys);
 	}
+	
+	@RequestMapping("/redis/delStringObject")
+	public void delStringObject(@RequestParam String key) {
+		redisService.delStringObject(key);
+	}
 }
