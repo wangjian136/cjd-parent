@@ -15,4 +15,4 @@ spring:
                 enabled: true
     elasticsearch:
         rest:
-            uris: http://192.168.0.6:9200
+            uris: http://192.168.0.11:9200

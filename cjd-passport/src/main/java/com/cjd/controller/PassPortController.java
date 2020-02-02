@@ -36,8 +36,12 @@ public class PassPortController {
 	private RedisService redisService;
 	
 	@RequestMapping("/user/showLogin")
-	public String showLoginPage(@RequestHeader("Referer") String url, Model model) {
-		model.addAttribute("redirect", url);
+	public String showLoginPage(@RequestHeader(value = "Referer",defaultValue = "") String url, Model model, String interUrl) {
+		if(!"".equals(interUrl)) {
+			model.addAttribute("redirect", interUrl);
+		}else if(!"".equals(url)){
+			model.addAttribute("redirect", url);
+		}
 		return "/login";
 	}
 	

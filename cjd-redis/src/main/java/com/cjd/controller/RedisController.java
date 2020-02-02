@@ -46,7 +46,7 @@ public class RedisController {
 	}
 	
 	@RequestMapping("/redis/getUser")
-	public User getUser(@RequestParam String key) {
+	public User getUser(@RequestParam(required = false) String key) {
 		return redisService.getStringUser(key);
 	}
 	

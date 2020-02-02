@@ -15,7 +15,7 @@ spring:
 ftpclient:
     basepath: E:/files/
     filepath: /
-    host: 192.168.0.6
+    host: 192.168.0.11
     password: 1
     username: Administrator
     port: 21

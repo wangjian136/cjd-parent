@@ -94,5 +94,7 @@
 		<module>cjd-admin</module>
 		<module>cjd-passport</module>
 		<module>cjd-passport-service</module>
+		<module>cjd-cart</module>
+		<module>cjd-cart-service</module>
 	</modules>
 </project>
