@@ -96,5 +96,7 @@
 		<module>cjd-passport-service</module>
 		<module>cjd-cart</module>
 		<module>cjd-cart-service</module>
+		<module>cjd-order</module>
+		<module>cjd-order-service</module>
 	</modules>
 </project>

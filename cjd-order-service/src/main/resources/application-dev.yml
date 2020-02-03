@@ -1,0 +1,21 @@
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+server:
+    port: 8807
+spring:
+    application:
+        name: order-service
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/ego
+        username: root
+        password: root
+        type: com.alibaba.druid.pool.DruidDataSource
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
