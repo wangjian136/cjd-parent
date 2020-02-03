@@ -208,13 +208,7 @@
 					<!--增加预售金额显示 end-->
 					<span class="ml20"> x${cart.num} </span> 
 					<span class="ml20 p-inventory" skuId="11555193">
-					<c:if test="${cart.enough }">
-						有货
-					</c:if>
-					<c:if test="${not cart.enough }">
-						<span class="myenough" style="color:red">无货</span>
-					</c:if>
-										
+					有货
 					</span>
 				</div>
 				<i class="p-icon p-icon-w"></i><span class="ftx-04">7天无理由退货</span>
@@ -327,7 +321,7 @@
 
 <!-- /main -->
 	<jsp:include page="commons/footer.jsp" />
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(function(){
 	$("#order-submit").click(function(){
 		if($(".myenough").length==0){
@@ -338,6 +332,6 @@ $(function(){
 		return false;
 	})
 })
-</script>
+</script> -->
 	</body>
 </html>
