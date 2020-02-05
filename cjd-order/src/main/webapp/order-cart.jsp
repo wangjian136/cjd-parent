@@ -321,17 +321,12 @@
 
 <!-- /main -->
 	<jsp:include page="commons/footer.jsp" />
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 $(function(){
 	$("#order-submit").click(function(){
-		if($(".myenough").length==0){
-			$("#orderForm").submit();
-		}else{
-			alert("商品库存不足");
-		}
-		return false;
+		$("#orderForm").submit();
 	})
 })
-</script> -->
+</script>
 	</body>
 </html>

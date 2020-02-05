@@ -98,5 +98,6 @@
 		<module>cjd-cart-service</module>
 		<module>cjd-order</module>
 		<module>cjd-order-service</module>
+		<module>cjd-rabbitmq</module>
 	</modules>
 </project>
