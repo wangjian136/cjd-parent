@@ -18,7 +18,7 @@
 		<druid.version>1.1.20</druid.version>
 		<hibernate.version>5.4.8.Final</hibernate.version>
 		<jackson.version>2.10.1</jackson.version>
-		<ftpclient-version>3.6</ftpclient-version>
+		<ftpclient-version>3.9.0</ftpclient-version>
 		<admin.version>2.2.1</admin.version>
 		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
 	</properties>
